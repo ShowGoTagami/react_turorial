@@ -13,25 +13,22 @@ class Board extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          var set = [];
+          for(var i=0; i<=2; i++){
+            var row = [];
+            for(var j=i*3; j<=i*3+2; j++){
+              row.push(this.renderSquare(j));
+                }
+              set.push(<div className="board-row" key={i}>{row}</div>);
+          }
+      return (
+        <div>
+          <div className="status">{/*status*/}</div>
+          {set}
         </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+      );
   }
+
 }
+
 export default Board
