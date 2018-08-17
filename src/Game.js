@@ -43,9 +43,10 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-
-    const moves = history.map((step, move) => {
+    const results = calculateWinner(current.squares);
+    const winner = results ? results[0] : null;//(2)勝者が決まっていればresults[0]をwinnerに代入
+    const result_line = results ? results[1] : null; //(3)勝者が決まっていればresults[1]をresults_lineへ代入
+      var moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
@@ -69,6 +70,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            result_line={result_line} // (4)Board へresults_line送る
           />
         </div>
         <div className="game-info">
@@ -96,7 +98,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return [squares[a] , lines[i]]; // (1)どのラインが揃ったのかをlines[]に入れる
     }
   }
   return null;
