@@ -7,7 +7,7 @@
     ∟-----feature/toggle_button-----  
     ∟-----feature/add_highlight-----  
     ∟-----feature/display_message---  
-    
+
 <developmentブランチについて>
 ・masterブランチが基本機能だけなのに対して、developmentは全6featureを実装したブランチ  
 
