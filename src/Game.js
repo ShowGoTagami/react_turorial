@@ -57,11 +57,11 @@ class Game extends React.Component {
     });
 
     let status;
-    if (winner && winner != 'draw') {
+    if (winner && winner != 'draw') {      // winnerに値が入り、かつ引き分けでない場合
       status = "Winner: " + winner;
-    }else if(winner && winner === 'draw'){
+    }else if(winner && winner === 'draw'){ // winnerに値が入り、かつ引き分けの
       status = "It is a draw!";
-    } else {
+    } else {                               //winnerに値が入らない場合(=継続の場合)
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
@@ -99,7 +99,7 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
-    }else if(!squares.includes(null)){
+    }else if(!squares.includes(null)){ // squareにnull値がない場合(=全て埋まっている場合)
       return 'draw';
     }
   }
