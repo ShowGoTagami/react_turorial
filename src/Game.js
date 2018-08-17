@@ -33,7 +33,7 @@ class Game extends React.Component {
         {
           squares: squares,
           position: {
-            row: parseInt(i/3,10),
+            row: Math.floor(i/3),
             col: i % 3,
           }
         }
@@ -60,7 +60,7 @@ class Game extends React.Component {
         'Go to move #' + move :
         'Go to game start';
       const point = move ?
-        "[" + step.position.row + "," + step.position.col + "]" : "";
+        `[${step.position.row},${step.position.col}]` : "";
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>{point}
