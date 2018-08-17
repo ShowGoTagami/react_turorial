@@ -289,7 +289,6 @@ class Board extends React.Component {
 ・jumpToメソッドを実装したあと、handleClickのhistoryに代入する履歴はstepNumber + 1までの配列とする  
 ・そして、render()メソッド内currentに対してもhisotry配列のstepNumber番目の要素(=現在のステップ)を代入する  
 
-
 追加課題 #1 feature mark point  
 
   ■作業時間  
