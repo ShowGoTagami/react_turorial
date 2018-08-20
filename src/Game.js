@@ -13,7 +13,7 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      order :"asc",
+      order :true,
     };
   }
 
@@ -44,7 +44,7 @@ class Game extends React.Component {
   }
 
   toggleOrder(){
-    const changedOrder = this.state.order === "asc" ? "desc" : "asc";
+    const changedOrder = this.state.order === true ? false : true;
     this.setState({
       order: changedOrder,
     })
@@ -65,7 +65,7 @@ class Game extends React.Component {
       );
     });
 
-    if(this.state.order === "desc"){
+    if(this.state.order === false){
       moves = moves.reverse();
     }
 
@@ -86,7 +86,11 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <div><button onClick={() => this.toggleOrder()}>{this.state.order}</button></div>
+          <div><button onClick={() => this.toggleOrder()}>
+            {
+              this.state.order === true ? "to desc":"to asc"
+            }
+        </button></div>
           <ol>{moves}</ol>
         </div>
       </div>
