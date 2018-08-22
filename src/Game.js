@@ -57,12 +57,15 @@ class Game extends React.Component {
     });
 
     let status;
-    (winner && winner != 'draw')?
-      status = "Winner: " + winner:
-    (winner && winner === 'draw')?
-      status = "It is a draw!":
+    if (!winner) {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-  
+    }else if(winner === 'draw'){ // winnerに値が入り、かつ引き分けの
+      status = "It is a draw!";
+    } else {
+      status = "Winner: " + winner;
+    }
+    
+
     return (
       <div className="game">
         <div className="game-board">
