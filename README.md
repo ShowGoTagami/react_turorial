@@ -288,3 +288,6 @@ class Board extends React.Component {
 　-さらにxIsNextもこのstepNumberに渡される引数stepの数が奇数=false、偶数=trueとする  
 ・jumpToメソッドを実装したあと、handleClickのhistoryに代入する履歴はstepNumber + 1までの配列とする  
 ・そして、render()メソッド内currentに対してもhisotry配列のstepNumber番目の要素(=現在のステップ)を代入する  
+
+追加課題 #2 bold_item の機能追加
+■課題・ゴール：いまいるステップの「戻る」ボタンを太字にする
