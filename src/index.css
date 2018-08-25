@@ -48,3 +48,12 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.square_btn{
+  margin-bottom: 30px;
+  margin-right:10px;
+}
+
+.intro{
+  margin-bottom: 10px;
+}
