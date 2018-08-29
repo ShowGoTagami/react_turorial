@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-function Square3(props) {
+function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
@@ -9,4 +9,4 @@ function Square3(props) {
   );
 }
 
-export default Square3
+export default Square
