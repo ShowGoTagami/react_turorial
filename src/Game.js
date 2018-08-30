@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from 'react'
 import Board from './Board'
 
 class Game extends React.Component {
@@ -7,6 +6,9 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [
+<<<<<<< HEAD
+        {squares: Array(null).fill(null)}
+=======
         {squares: Array(9).fill(null),
          position: {
            row: null,
@@ -14,17 +16,24 @@ class Game extends React.Component {
          }
 
         }
+>>>>>>> development
       ],
       stepNumber: 0,
       xIsNext: true
     };
   }
 
+  // stateにtypeをプリセットする
+  componentWillMount(props){
+    this.setState({history: [{squares: Array(this.props.type).fill(null)}]});
+  }
+
+  // クリックする(=1手)の動作
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares,this.props.line) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
@@ -43,6 +52,7 @@ class Game extends React.Component {
     });
   }
 
+  // ターンを管理する
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -50,10 +60,11 @@ class Game extends React.Component {
     });
   }
 
+  // 画面の描画
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares,this.props.line);
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -80,6 +91,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            line={this.props.line}
           />
         </div>
         <div className="game-info">
@@ -93,7 +105,9 @@ class Game extends React.Component {
 
 // ========================================
 
-function calculateWinner(squares) {
+// 勝敗を決めるロジック
+function calculateWinner(squares,line) {
+  if(line===3){
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -111,6 +125,30 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+else{
+  const lines = [
+    [0, 1, 2, 3, 4],
+    [5, 6, 7, 8, 9],
+    [10, 11, 12, 13, 14],
+    [15, 16, 17, 18, 19],
+    [20, 21, 22, 23, 24],
+    [0, 5, 10, 15, 20],
+    [1, 6, 11, 16, 21],
+    [2, 7, 12, 17, 22],
+    [3, 8, 13, 18, 23],
+    [4, 9, 14, 19, 24],
+    [0, 6, 12, 18, 24],
+    [4, 8, 12, 16, 20]
+];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c, d, e] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] && squares[b] === squares[d] && squares[c] === squares[e]) {
+      return squares[a];
+    }
+  }
+  return null;
+  }
 }
 
 export default Game
