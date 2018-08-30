@@ -1,31 +1,21 @@
 import React from 'react'
 import Board from './Board'
 
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    var type = this.props.line;
+    type **= 2;
     this.state = {
       history: [
-<<<<<<< HEAD
-        {squares: Array(null).fill(null)}
-=======
-        {squares: Array(9).fill(null),
-         position: {
-           row: null,
-           col: null,
-         }
-
+        {
+          squares: Array(type).fill(null)
         }
->>>>>>> development
       ],
       stepNumber: 0,
       xIsNext: true
     };
-  }
-
-  // stateにtypeをプリセットする
-  componentWillMount(props){
-    this.setState({history: [{squares: Array(this.props.type).fill(null)}]});
   }
 
   // クリックする(=1手)の動作
@@ -41,15 +31,12 @@ class Game extends React.Component {
       history: history.concat([
         {
           squares: squares,
-          position: {
-            row: Math.floor(i/3),
-            col: i % 3,
-          }
         }
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
+    //setTimeout(cpuEasy(i), 1000);
   }
 
   // ターンを管理する
@@ -150,5 +137,7 @@ else{
   return null;
   }
 }
+
+// CPUのロジック
 
 export default Game

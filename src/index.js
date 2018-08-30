@@ -8,19 +8,17 @@ class Selector extends React.Component{
   constructor(props){
     super();
     this.state = {
-      type: 0,
       line: 0
     };
   }
   switchType(num){
     this.setState({
       line:num,
-      type:num**=2
     });
   }
 
   render() {
-    if(this.state.type !== 0) return <Game type={this.state.type} line={this.state.line}/> ;
+    if(this.state.line !== 0) return <Game line={this.state.line}/> ;
     return(
       <div>
         <div className="intro">Select type of Game!</div>
