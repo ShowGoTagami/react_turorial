@@ -27,7 +27,7 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({
+     this.setState({
       history: history.concat([
         {
           squares: squares,
@@ -36,10 +36,9 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
-    //setTimeout(cpuEasy(i), 1000);
   }
 
-  // ターンを管理する
+  // ターンを戻す
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -138,6 +137,5 @@ else{
   }
 }
 
-// CPUのロジック
 
 export default Game
