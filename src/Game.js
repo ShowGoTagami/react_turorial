@@ -1,31 +1,22 @@
 import React from 'react'
 import Board from './Board'
 
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    var type = this.props.line;
+    type **= 2;
     this.state = {
       history: [
-<<<<<<< HEAD
-        {squares: Array(null).fill(null)}
-=======
-        {squares: Array(9).fill(null),
-         position: {
-           row: null,
-           col: null,
-         }
-
+        {
+          squares: Array(type).fill(null)
         }
->>>>>>> development
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      battle:this.props.battle
     };
-  }
-
-  // stateにtypeをプリセットする
-  componentWillMount(props){
-    this.setState({history: [{squares: Array(this.props.type).fill(null)}]});
   }
 
   // クリックする(=1手)の動作
@@ -37,22 +28,25 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({
+     this.setState({
       history: history.concat([
         {
           squares: squares,
-          position: {
-            row: Math.floor(i/3),
-            col: i % 3,
-          }
         }
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
+    if(this.state.battle==="cpu"){
+    var turnNow = this.state.xIsNext;
+    cpuEasy(i,squares,turnNow);
+    this.setState({
+      xIsNext: turnNow
+    });
+    }
   }
 
-  // ターンを管理する
+  // ターンを戻す
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -148,6 +142,18 @@ else{
     }
   }
   return null;
+  }
+}
+
+function cpuEasy(i,squares,turnNow) {
+  var l = squares.length;
+  for(var a=0; a<l; a++){
+    var j = Math.floor(Math.random()*l);
+    if(squares[j]==null){
+      squares[j]="O"
+      turnNow = !turnNow;
+      break;
+    }
   }
 }
 
