@@ -14,7 +14,8 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      battle:this.props.battle
     };
   }
 
@@ -36,6 +37,13 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
+    if(this.state.battle==="cpu"){
+    var turnNow = this.state.xIsNext;
+    cpuEasy(i,squares,turnNow);
+    this.setState({
+      xIsNext: turnNow
+    });
+    }
   }
 
   // ターンを戻す
@@ -137,5 +145,16 @@ else{
   }
 }
 
+function cpuEasy(i,squares,turnNow) {
+  var l = squares.length;
+  for(var a=0; a<l; a++){
+    var j = Math.floor(Math.random()*l);
+    if(squares[j]==null){
+      squares[j]="O"
+      turnNow = !turnNow;
+      break;
+    }
+  }
+}
 
 export default Game
