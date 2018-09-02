@@ -13,7 +13,7 @@ class Selector extends React.Component{
   }
   switchType(num){
     this.setState({
-      line:num,
+      line:num
     });
   }
 

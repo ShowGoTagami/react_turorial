@@ -5,8 +5,7 @@ import Board from './Board'
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    var type = this.props.line;
-    type **= 2;
+    const type = this.props.line **2;
     this.state = {
       history: [
         {
@@ -14,8 +13,8 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true,
-      battle:this.props.battle
+      xIsNext   : true,
+      battle    :this.props.battle
     };
   }
 
@@ -24,25 +23,40 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares,this.props.line) || squares[i]) {
-      return;
-    }
+    if (calculateWinner(squares,this.props.line) || squares[i]!==null) {return}
     squares[i] = this.state.xIsNext ? "X" : "O";
-     this.setState({
+    this.setState({
       history: history.concat([
         {
           squares: squares,
         }
       ]),
+      xIsNext: !this.state.xIsNext,
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
     });
-    if(this.state.battle==="cpu"){
-    var turnNow = this.state.xIsNext;
-    cpuEasy(i,squares,turnNow);
-    this.setState({
-      xIsNext: turnNow
-    });
+  }
+
+  //stateが更新されたら呼び出される
+  componentDidUpdate(nextProps,nextState){
+    if(nextState.xIsNext !== this.state.xIsNext){
+      if(this.state.battle==="player" || this.state.xIsNext === true){return}
+      console.log("aaa")
+      this.cpuEasy();
+    }
+  }
+
+  //CPUのロジック
+  cpuEasy() {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    const l = squares.length;
+    for(var a=0; a<l; a++){
+      const j = Math.floor(Math.random()*l);
+      if(squares[j]==null){
+        this.handleClick(j);　//ランダムな値 j でhandleClick()を呼び出す
+        break;
+      }
     }
   }
 
@@ -78,7 +92,6 @@ class Game extends React.Component {
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
-
     return (
       <div className="game">
         <div className="game-board">
@@ -145,16 +158,5 @@ else{
   }
 }
 
-function cpuEasy(i,squares,turnNow) {
-  var l = squares.length;
-  for(var a=0; a<l; a++){
-    var j = Math.floor(Math.random()*l);
-    if(squares[j]==null){
-      squares[j]="O"
-      turnNow = !turnNow;
-      break;
-    }
-  }
-}
 
 export default Game
